@@ -3,7 +3,6 @@ package main
 import (
 	"machine"
 	"machine/usb/midi"
-	"time"
 )
 
 // Try it easily by opening the following site in Chrome.
@@ -11,41 +10,62 @@ import (
 
 func main() {
 
-	machine.LED.Configure(machine.PinConfig{Mode: machine.PinOutput})
-
-	pins := [6]machine.Pin{
-		machine.GP0,
-		machine.GP1,
-		machine.GP2,
-		machine.GP3,
-		machine.GP4,
-		machine.GP5,
-	}
-
-	for i := 0; i < len(pins); i++ {
-		pins[i].Configure(machine.PinConfig{Mode: machine.PinInputPulldown})
-	}
-
 	m := midi.New()
 
-	notes := [6]midi.Note{
-		midi.C4,
-		midi.D4,
-		midi.E4,
-		midi.F4,
-		midi.G4,
-		midi.A4,
-	}
+	machine.LED.Configure(machine.PinConfig{Mode: machine.PinOutput})
+	machine.GP0.Configure(machine.PinConfig{Mode: machine.PinInputPulldown})
+	machine.GP1.Configure(machine.PinConfig{Mode: machine.PinInputPulldown})
+	machine.GP2.Configure(machine.PinConfig{Mode: machine.PinInputPulldown})
+	machine.GP3.Configure(machine.PinConfig{Mode: machine.PinInputPulldown})
+	machine.GP4.Configure(machine.PinConfig{Mode: machine.PinInputPulldown})
+	machine.GP5.Configure(machine.PinConfig{Mode: machine.PinInputPulldown})
 
-	for {
-		for i := 0; i < len(pins); i++ {
-			if pins[i].Get() {
-				machine.LED.High()
-				m.NoteOn(0, 0, notes[i], 0x40)
-				time.Sleep(100 * time.Millisecond)
-				m.NoteOff(0, 0, notes[i], 0x40)
-			}
-			machine.LED.Low()
+	machine.GP0.SetInterrupt(machine.PinFalling|machine.PinRising, func(p machine.Pin) {
+		if p.Get() {
+			m.NoteOn(0, 0, midi.C3, 0x40)
+		} else {
+			m.NoteOff(0, 0, midi.C3, 0x40)
 		}
-	}
+	})
+
+	machine.GP1.SetInterrupt(machine.PinFalling|machine.PinRising, func(p machine.Pin) {
+		if p.Get() {
+			m.NoteOn(0, 0, midi.D4, 0x40)
+		} else {
+			m.NoteOff(0, 0, midi.D4, 0x40)
+		}
+	})
+
+	machine.GP2.SetInterrupt(machine.PinFalling|machine.PinRising, func(p machine.Pin) {
+		if p.Get() {
+			m.NoteOn(0, 0, midi.E5, 0x40)
+		} else {
+			m.NoteOff(0, 0, midi.E5, 0x40)
+		}
+	})
+
+	machine.GP3.SetInterrupt(machine.PinFalling|machine.PinRising, func(p machine.Pin) {
+		if p.Get() {
+			m.NoteOn(0, 0, midi.FS1, 0x40)
+		} else {
+			m.NoteOff(0, 0, midi.FS1, 0x40)
+		}
+	})
+
+	machine.GP4.SetInterrupt(machine.PinFalling|machine.PinRising, func(p machine.Pin) {
+		if p.Get() {
+			m.NoteOn(0, 0, midi.G1, 0x40)
+		} else {
+			m.NoteOff(0, 0, midi.G1, 0x40)
+		}
+	})
+
+	machine.GP5.SetInterrupt(machine.PinFalling|machine.PinRising, func(p machine.Pin) {
+		if p.Get() {
+			m.NoteOn(0, 0, midi.A2, 0x40)
+		} else {
+			m.NoteOff(0, 0, midi.A2, 0x40)
+		}
+	})
+
 }
