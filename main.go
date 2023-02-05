@@ -3,6 +3,7 @@ package main
 import (
 	"machine"
 	"machine/usb/midi"
+	"time"
 )
 
 // Try it easily by opening the following site in Chrome.
@@ -12,7 +13,12 @@ func main() {
 
 	m := midi.New()
 
+	machine.InitADC()
+	sensor := machine.ADC{Pin: machine.ADC2}
+	sensor.Configure(machine.ADCConfig{})
+
 	machine.LED.Configure(machine.PinConfig{Mode: machine.PinOutput})
+
 	machine.GP0.Configure(machine.PinConfig{Mode: machine.PinInputPulldown})
 	machine.GP1.Configure(machine.PinConfig{Mode: machine.PinInputPulldown})
 	machine.GP2.Configure(machine.PinConfig{Mode: machine.PinInputPulldown})
@@ -68,4 +74,9 @@ func main() {
 		}
 	})
 
+	for {
+		val := sensor.Get()
+		time.Sleep(time.Second)
+		println(val)
+	}
 }
