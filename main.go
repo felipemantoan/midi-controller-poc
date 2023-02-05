@@ -30,41 +30,41 @@ func main() {
 
 	machine.GP1.SetInterrupt(machine.PinFalling|machine.PinRising, func(p machine.Pin) {
 		if p.Get() {
-			m.NoteOn(0, 0, midi.D4, 0x40)
+			m.NoteOn(0, 0, midi.D3, 0x40)
 		} else {
-			m.NoteOff(0, 0, midi.D4, 0x40)
+			m.NoteOff(0, 0, midi.D3, 0x40)
 		}
 	})
 
 	machine.GP2.SetInterrupt(machine.PinFalling|machine.PinRising, func(p machine.Pin) {
 		if p.Get() {
-			m.NoteOn(0, 0, midi.E5, 0x40)
+			m.NoteOn(0, 0, midi.F3, 0x40)
 		} else {
-			m.NoteOff(0, 0, midi.E5, 0x40)
+			m.NoteOff(0, 0, midi.F3, 0x40)
 		}
 	})
 
 	machine.GP3.SetInterrupt(machine.PinFalling|machine.PinRising, func(p machine.Pin) {
 		if p.Get() {
-			m.NoteOn(0, 0, midi.FS1, 0x40)
+			m.NoteOn(0, 0, midi.G3, 0x40)
 		} else {
-			m.NoteOff(0, 0, midi.FS1, 0x40)
+			m.NoteOff(0, 0, midi.G3, 0x40)
 		}
 	})
 
 	machine.GP4.SetInterrupt(machine.PinFalling|machine.PinRising, func(p machine.Pin) {
 		if p.Get() {
-			m.NoteOn(0, 0, midi.G1, 0x40)
+			m.NoteOn(0, 0, midi.A3, 0x40)
 		} else {
-			m.NoteOff(0, 0, midi.G1, 0x40)
+			m.NoteOff(0, 0, midi.A3, 0x40)
 		}
 	})
 
 	machine.GP5.SetInterrupt(machine.PinFalling|machine.PinRising, func(p machine.Pin) {
 		if p.Get() {
-			m.NoteOn(0, 0, midi.A2, 0x40)
+			m.NoteOn(0, 0, midi.E3, 0x40)
 		} else {
-			m.NoteOff(0, 0, midi.A2, 0x40)
+			m.NoteOff(0, 0, midi.E3, 0x40)
 		}
 	})
 
